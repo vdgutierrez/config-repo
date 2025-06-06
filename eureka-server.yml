@@ -1,0 +1,29 @@
+server:
+  port: 8761
+
+spring:
+  security:
+    user:
+      name: ${EUREKA_SERVER_USERNAME:admin}
+      password: ${EUREKA_SERVER_PASSWORD:admin123}
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+    response-cache-update-interval-ms: 5000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always 

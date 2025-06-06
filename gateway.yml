@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: eureka-server
+          uri: lb://eureka-server
+          predicates:
+            - Path=/eureka/**
+        - id: mc1
+          uri: lb://mc1
+          predicates:
+            - Path=/mc1/**
+        - id: mc3
+          uri: lb://mc3
+          predicates:
+            - Path=/mc3/**
+        - id: juego
+          uri: lb://juego
+          predicates:
+            - Path=/juego/**
+        - id: dashboard
+          uri: lb://dashboard
+          predicates:
+            - Path=/dashboard/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always 
